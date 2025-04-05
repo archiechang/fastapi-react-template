@@ -1,0 +1,53 @@
+{
+  "name": "local-dev",
+	"dockerComposeFile": [
+		"../docker-compose.yaml"
+	],
+  "workspaceFolder": "/app",
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+    "source=${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+    // "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    "source=vscode-extensions,target=/home/vscode/.vscode-server/extensions,type=volume",
+    "source=./,target=/app,type=bind"
+  ],
+  "customizations": {
+    "vscode": {
+      "recommendations": false,
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        "yzhang.markdown-all-in-one",
+        "ms-toolsai.jupyter",
+        "christian-kohler.path-intellisense",
+        "mechatroner.rainbow-csv",
+        "Gruntfuggly.todo-tree",
+        "redhat.vscode-yaml",
+        "matangover.mypy",
+        "ryanluker.vscode-coverage-gutters",
+        "ClemensPeters.format-json",
+        "saoudrizwan.claude-dev",
+        "ms-azuretools.vscode-docker",
+        "sourcegraph.cody-ai"
+      ]
+    }
+  },
+  "service": "backend",
+  // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+  "remoteUser": "vscode",
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode",
+      "uid": "1000",
+      "gid": "1000"
+    },
+    "ghcr.io/devcontainers/features/docker-from-docker:1": {}
+  },
+  // "postCreateCommand": "sudo chown -R vscode:vscode /app"
+  // ,"postCreateCommand": "cd /app/backend"
+  "postCreateCommand": "cd /app/backend && uv sync --frozen"
+}
