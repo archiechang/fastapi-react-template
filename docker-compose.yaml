@@ -15,6 +15,24 @@ services:
       - network
     command: sleep infinity
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: react
+    ports:
+      - 3000:3000
+    volumes:
+      - node_modules:/app/frontend/node_modules
+    env_file:
+      - ./frontend/.env
+    tty: true
+    command: sleep infinity
+    networks:
+      - network
+
+volumes:
+  node_modules:
 networks:
   network:
     driver: bridge

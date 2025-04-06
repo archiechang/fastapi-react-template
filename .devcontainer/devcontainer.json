@@ -29,13 +29,22 @@
         "ClemensPeters.format-json",
         "saoudrizwan.claude-dev",
         "ms-azuretools.vscode-docker",
-        "sourcegraph.cody-ai"
+        "sourcegraph.cody-ai",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "christian-kohler.npm-intellisense",
+        "ms-vscode.live-server",
+        "ritwickdey.LiveServer"
       ]
     }
   },
-  "service": "backend",
+  // "service": "backend",
+  "service": "frontend",
   // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
   "remoteUser": "vscode",
+  // 
+  // "postCreateCommand": "cd /app/backend && uv sync --frozen",
+  "postCreateCommand": "sudo chown -R vscode:vscode /app/frontend",
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
@@ -46,8 +55,5 @@
       "gid": "1000"
     },
     "ghcr.io/devcontainers/features/docker-from-docker:1": {}
-  },
-  // "postCreateCommand": "sudo chown -R vscode:vscode /app"
-  // ,"postCreateCommand": "cd /app/backend"
-  "postCreateCommand": "cd /app/backend && uv sync --frozen"
+  }
 }
